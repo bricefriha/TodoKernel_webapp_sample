@@ -1,7 +1,7 @@
 <template>
     <div>
-  <b-navbar toggleable="lg" type="dark"  class=" fixed-top navbar-custom">
-    <b-navbar-brand href="#">TodoKernel: Web Application</b-navbar-brand>
+  <b-navbar toggleable="lg" type="light"   class=" fixed-top navbar-custom">
+    <b-navbar-brand href="#"  class="navbar-title">TodoKernel: Web Application</b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -13,11 +13,15 @@
 
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
-        <b-button size="sm" class="my-2 my-sm-0" type="submit" right>Login</b-button>
+        <router-link :to="{ name:'login'}" right>
+          <b-button  class="my-2 my-sm-0 navbar-button" >Log in</b-button>
+        </router-link>
+        <b-button  class="my-2 my-sm-0 navbar-button"  right>Sign in</b-button>
         <!-- If a user is connected -->
         <!-- <b-nav-item-dropdown right>
           <template v-slot:button-content>
             <em>User</em>
+            ]#
           </template>
           <b-dropdown-item href="#">Profile</b-dropdown-item>
           <b-dropdown-item href="#">Sign Out</b-dropdown-item>
@@ -29,7 +33,25 @@
 </template>
 <style scoped>
 .navbar-custom {
-    color: #F2F2F2;
-    background-color: #F58819;
+    color: #fafafa;
+    background-color: #FF9932;
+}
+.navbar-title {
+  color: #1E2023 !important;
+  font-size: 30px !important; 
+  margin-left: 10px;
+   font-weight: bold;
+   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+.navbar-button {
+  border-radius: 16px;
+  color: #fafafa;
+  border-color: #1E2023;
+  background-color: #1E2023;
+  padding-top: 7px;
+  padding-right: 20px;
+  padding-bottom: 7px;
+  padding-left: 20px;
+  margin:6px;
 }
 </style>

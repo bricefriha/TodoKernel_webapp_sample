@@ -3,14 +3,14 @@ import App from './App.vue';
 
 import PortalVue from 'portal-vue';
 import router from './router';
-
+import VueRouter from 'vue-router';
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 // import PopperJs from '@popperjs/core';
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
-
+Vue.use(VueRouter);
 // This imports all the layout components such as <b-container>, <b-row>, <b-col>:
 import { LayoutPlugin } from 'bootstrap-vue'
 Vue.use(LayoutPlugin)
