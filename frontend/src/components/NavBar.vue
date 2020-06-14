@@ -1,6 +1,6 @@
 <template>
     <div>
-  <b-navbar toggleable="lg" type="dark" variant="info" class=" fixed-top">
+  <b-navbar toggleable="lg" type="dark"  class=" fixed-top navbar-custom">
     <b-navbar-brand href="#">TodoKernel: Web Application</b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -27,3 +27,9 @@
   </b-navbar>
 </div>
 </template>
+<style scoped>
+.navbar-custom {
+    color: #F2F2F2;
+    background-color: #F58819;
+}
+</style>
