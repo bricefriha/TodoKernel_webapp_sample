@@ -2,6 +2,8 @@ import Vue from 'vue'
 import App from './App.vue';
 import VueRouter from 'vue-router';
 import PortalVue from 'portal-vue';
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 // import PopperJs from '@popperjs/core';
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 Vue.use(BootstrapVue)
