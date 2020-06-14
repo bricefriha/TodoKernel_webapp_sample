@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import App from './App.vue';
-import VueRouter from 'vue-router';
+
 import PortalVue from 'portal-vue';
+import router from './router';
+
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 // import PopperJs from '@popperjs/core';
@@ -31,7 +33,7 @@ Vue.use(DropdownPlugin)
 Vue.use(TablePlugin)
 
 // Integrate vue-router to the app 
-Vue.use(VueRouter);
+// Vue.use(VueRouter);
 
 // Integrate portal to the app 
 Vue.use(PortalVue);
@@ -44,4 +46,5 @@ Vue.config.productionTip = false;
 
 new Vue({
   render: h => h(App),
+  router,
 }).$mount('#app')
