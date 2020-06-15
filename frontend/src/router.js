@@ -6,7 +6,8 @@ import VueRouter from 'vue-router';
 
 const routes = [
     { path: '/', name: 'home', component: HelloWorld},
-    { path: '/login', name: 'login', component: Login}
+    { path: '/login', name: 'login', component: Login},
+    { path: '/signup', name: 'signup', component: Login},
 ];
 
 const router = new VueRouter({

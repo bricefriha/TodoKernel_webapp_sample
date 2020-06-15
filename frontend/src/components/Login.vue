@@ -4,8 +4,8 @@
       img-top
       tag="article"
       class="mb-2 login-card ">
+      <b-form v-if="this.$route.name === 'login'" @submit="loginSubmit" >
       <label class="title" >Log in</label>
-      <b-form @submit="loginSubmit" >
 
           <!-- username -->
           <b-form-group
@@ -20,18 +20,56 @@
             id="fieldset-2"
             label="Password"
             label-for="input-2">
-            <b-form-input id="input-2" class="input-card" v-model="form.password" :type="'password'"  trim></b-form-input>
+            <b-form-input id="input-2" class="input-card" v-model="form.password" :type="'password'" required trim></b-form-input>
           </b-form-group>
           <!-- In case there is an error -->
            <b-alert v-if="this.form.error.length > 0" variant="danger" v-text="form.error" show></b-alert>
 
         <b-button type="submit" class="login-button" >Log in</b-button>
       </b-form>
+      <b-form v-if="this.$route.name === 'signup'" @submit="loginSubmit" >
+
+        <label class="title" >Sign up</label>
+          <!-- username -->
+          <b-form-group
+            id="fieldsetUsername"
+            label="Username"
+            label-for="input-1"
+            >
+            <b-form-input id="input-1" class="input-card" required v-model="form.login"  trim></b-form-input>
+          </b-form-group>
+          <!-- username -->
+          <b-form-group
+            id="fieldsetEmail"
+            label="Email"
+            label-for="inputEmail"
+            >
+            <b-form-input id="inputEmail" class="input-card" required v-model="form.login" trim></b-form-input>
+          </b-form-group>
+          <!-- password -->
+          <b-form-group
+            id="fieldsetPassword"
+            label="Password"
+            label-for="inputPassword">
+            <b-form-input id="inputSignupPassword" class="input-card" v-model="form.password" :type="'password'" required trim></b-form-input>
+          </b-form-group>
+          <!-- verify password -->
+          <b-form-group
+            id="fieldsetPassword"
+            label="Verify the password"
+            label-for="inputPasswordVerif">
+            <b-form-input id="inputSignupPasswordVerif" class="input-card" v-model="form.password" :type="'password'" required trim></b-form-input>
+          </b-form-group>
+          <!-- In case there is an error -->
+           <b-alert v-if="this.form.error.length > 0" variant="danger" v-text="form.error" show></b-alert>
+
+        <b-button type="submit" class="login-button" >Sign up</b-button>
+      </b-form>
   </b-card>
 </template>
 <style scoped>
     .login-card{
-        max-width: 50rem;
+        max-width: 40rem;
         margin-left: auto;
         margin-right: auto;
         margin-bottom: auto;
@@ -39,8 +77,6 @@
         background-color: #fff ;
         border-radius: 12px;
         box-shadow: 0 0px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 6px 0 rgba(0, 0, 0, 0.19);
-        
-
     }
     .input-card {
         width: 50%;
@@ -72,7 +108,6 @@
         // Reset the error
         this.form.error = '';
         evt.preventDefault();
-        //alert(JSON.stringify(this.form));
 
         // Set a object user
         const logins = {
@@ -83,10 +118,12 @@
 
         // Request the server
         this.$http.post("/users/authenticate", logins).then(response => {
-                this.$store.user = response.data;
-            }).catch((error) => {    
-                this.form.error = error.response.data.message;   
-            });
+            this.$store.user = response.data;
+            //
+            this.$router.push("/");
+        }).catch((error) => {    
+            this.form.error = error.response.data.message + " 😥";   
+        });
       }
     },
     computed: {

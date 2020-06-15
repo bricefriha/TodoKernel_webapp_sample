@@ -16,7 +16,10 @@
         <router-link :to="{ name:'login'}" right>
           <b-button  class="my-2 my-sm-0 navbar-button" >Log in</b-button>
         </router-link>
-        <b-button  class="my-2 my-sm-0 navbar-button"  right>Sign up</b-button>
+        <router-link :to="{ name:'signup'}" right>
+          <b-button  class="my-2 my-sm-0 navbar-button">Sign up</b-button>
+        </router-link>
+        
         <!-- If a user is connected -->
         <!-- <b-nav-item-dropdown right>
           <template v-slot:button-content>
