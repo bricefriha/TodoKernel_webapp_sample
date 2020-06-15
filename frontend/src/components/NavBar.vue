@@ -16,7 +16,7 @@
         <router-link :to="{ name:'login'}" right>
           <b-button  class="my-2 my-sm-0 navbar-button" >Log in</b-button>
         </router-link>
-        <b-button  class="my-2 my-sm-0 navbar-button"  right>Sign in</b-button>
+        <b-button  class="my-2 my-sm-0 navbar-button"  right>Sign up</b-button>
         <!-- If a user is connected -->
         <!-- <b-nav-item-dropdown right>
           <template v-slot:button-content>
@@ -35,6 +35,7 @@
 .navbar-custom {
     color: #fafafa;
     background-color: #FFA500;
+    box-shadow: 0 0px 2px 0 rgba(0, 0, 0, 0.2), 0 3px 6px 0 rgba(0, 0, 0, 0.19);
 }
 .navbar-title {
   color: #1E2023 !important;
