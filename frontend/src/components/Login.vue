@@ -22,6 +22,8 @@
             label-for="input-2">
             <b-form-input id="input-2" class="input-card" v-model="form.password" :type="'password'"  trim></b-form-input>
           </b-form-group>
+          <!-- In case there is an error -->
+           <b-alert v-if="this.form.error.length > 0" variant="danger" v-text="form.error" show></b-alert>
 
         <b-button type="submit" class="login-button" >Log in</b-button>
       </b-form>
@@ -67,10 +69,24 @@
   export default {
     methods: {
       async loginSubmit(evt) {
-        evt.preventDefault()
-        alert(JSON.stringify(this.form));
-        
-        
+        // Reset the error
+        this.form.error = '';
+        evt.preventDefault();
+        //alert(JSON.stringify(this.form));
+
+        // Set a object user
+        const logins = {
+          username: this.form.login,
+          password: this.form.password,
+
+        }
+
+        // Request the server
+        this.$http.post("/users/authenticate", logins).then(response => {
+                this.$store.user = response.data;
+            }).catch((error) => {    
+                this.form.error = error.response.data.message;   
+            });
       }
     },
     computed: {
@@ -109,6 +125,8 @@
         login: '',
         password: '',
         invalidFeedback: '',
+        error: '',
+        
         }
       }
     }

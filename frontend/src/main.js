@@ -7,11 +7,19 @@ import store from './store';
 import VueRouter from 'vue-router';
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import axios from "axios"
+
+Vue.use(axios);
+
+// create http base
+const http = axios.create({
+    baseURL: process.env.BACKEND_URL ? process.env.BACKEND_URL : 'http://localhost/',
+  });
+  Vue.prototype.$http = http;
 // import PopperJs from '@popperjs/core';
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 Vue.use(BootstrapVue)
-Vue.use(BootstrapVueIcons)
-Vue.use(VueRouter);
+Vue.use(BootstrapVueIcons);
 // This imports all the layout components such as <b-container>, <b-row>, <b-col>:
 import { LayoutPlugin } from 'bootstrap-vue'
 Vue.use(LayoutPlugin)
@@ -34,7 +42,7 @@ Vue.use(DropdownPlugin)
 Vue.use(TablePlugin)
 
 // Integrate vue-router to the app 
-// Vue.use(VueRouter);
+ Vue.use(VueRouter);
 
 // Integrate portal to the app 
 Vue.use(PortalVue);
