@@ -1,33 +1,30 @@
 <template>
-    <b-card
-    img-top
-    tag="article"
-    class="mb-2 login-card ">
-    <label class="title" >Log in</label>
-    <!-- username -->
-    <b-form-group
-      id="fieldset-1"
-      label="Username or Email"
-      label-for="input-1"
-      @focus="loginHasBeenFocus= true"
-      :invalid-feedback="invalidFeedback"
-      :valid-feedback="validFeedback"
-      :state="loginState">
-      <b-form-input id="input-1" class="input-card" v-model="login" :state="loginState" trim></b-form-input>
-    </b-form-group>
-    <!-- password -->
-    <b-form-group
-      id="fieldset-1"
-      label="Password"
-      label-for="input-2"
-      @focus="passwordHasBeenFocus= true"
-      :invalid-feedback="invalidFeedback"
-      :valid-feedback="validFeedback"
-      :state="passwordState">
-      <b-form-input id="input-2" class="input-card" v-model="password" :state="passwordState" trim></b-form-input>
-    </b-form-group>
 
-    <b-button href="#" class="login-button">Log in</b-button>
+      <b-card
+      img-top
+      tag="article"
+      class="mb-2 login-card ">
+      <label class="title" >Log in</label>
+      <b-form @submit="loginSubmit" >
+
+          <!-- username -->
+          <b-form-group
+            id="fieldset-1"
+            label="Username or Email"
+            label-for="input-1"
+            >
+            <b-form-input id="input-1" class="input-card" required v-model="form.login" trim></b-form-input>
+          </b-form-group>
+          <!-- password -->
+          <b-form-group
+            id="fieldset-2"
+            label="Password"
+            label-for="input-2">
+            <b-form-input id="input-2" class="input-card" v-model="form.password" :type="'password'"  trim></b-form-input>
+          </b-form-group>
+
+        <b-button type="submit" class="login-button" >Log in</b-button>
+      </b-form>
   </b-card>
 </template>
 <style scoped>
@@ -50,8 +47,8 @@
     .login-button {
         border-radius: 16px;
         color: #fff;
-        border-color: #3298FF;
-        background-color: #3298FF;
+        border-color: #005AFF;
+        background-color: #005AFF;
         padding-top: 7px;
         padding-right: 20px;
         padding-bottom: 7px;
@@ -68,39 +65,51 @@
 </style>
 <script>
   export default {
-    computed: {
-      loginState() {
-          console.log(this.loginHasBeenFocus);
-          if (this.loginHasBeenFocus) {
-              console.log("hey");
-              return this.login.length > 0 ? true : false;
-          } 
-              console.log(this.loginHasBeenFocus);
-              return true;
+    methods: {
+      async loginSubmit(evt) {
+        evt.preventDefault()
+        alert(JSON.stringify(this.form));
         
-      },
-      passwordState() {
-        return this.password.length >= 4 ? true : false
-      },
-      invalidFeedback() {
-        if (this.login.length > 4) {
-          return ''
-        } else if (this.login.length > 0) {
-          return 'Enter at least 4 characters'
-        } else {
-          return 'Please enter something'
-        }
-      },
-      validFeedback() {
-        return this.state === true ? 'Thank you' : ''
+        
       }
     },
+    computed: {
+      // loginState() {
+      //   if (this.loginHasBeenFocus){
+      //     console.log("hey");
+      //     return this.login.length > 0;
+      //   }
+      //   return  false;
+      // },
+      // passwordState() {
+      //   return this.password.length >= 4 ? true : false
+      // },
+      // invalidFeedback() {
+      //   if (this.login.length > 4) {
+      //     return ''
+      //   } else if (this.login.length > 0) {
+      //     return 'Enter at least 4 characters'
+      //   } else {
+      //     return 'Please enter something'
+      //   }
+      // },
+      // validFeedback() {
+      //   return this.state === true ? 'Thank you' : ''
+      // }
+    },
+    
+    // created() {
+    //    this.loginHasBeenFocus = false;
+    //    this.loginState = false;
+    // },
+    
     data() {
       return {
+        form: {
         login: '',
         password: '',
-        loginHasBeenFocus: false,
-        passwordHasBeenFocus: false,
+        invalidFeedback: '',
+        }
       }
     }
   }

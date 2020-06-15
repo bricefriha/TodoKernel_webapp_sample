@@ -34,7 +34,7 @@
 <style scoped>
 .navbar-custom {
     color: #fafafa;
-    background-color: #FF9932;
+    background-color: #FFA500;
 }
 .navbar-title {
   color: #1E2023 !important;
@@ -46,8 +46,8 @@
 .navbar-button {
   border-radius: 16px;
   color: #fafafa;
-  border-color: #1E2023;
-  background-color: #1E2023;
+  border-color: #005AFF;
+  background-color: #005AFF;
   padding-top: 7px;
   padding-right: 20px;
   padding-bottom: 7px;
