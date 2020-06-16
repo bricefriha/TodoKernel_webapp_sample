@@ -149,7 +149,7 @@
 
         // Request the server
         this.$http.post("/users/authenticate", logins).then(response => {
-            this.$store.user = response.data;
+            this.$store.state.user = response.data;
             //
             this.$router.push("/");
         }).catch((error) => {    
@@ -170,12 +170,12 @@
           password: this.form.password,
 
         }
-        console.log(signUps);
 
         // Request the server
         this.$http.post("/users/register", signUps).then(response => {
-            this.$store.user = response.data;
-            //
+            // this.$store.state.user = response.data;
+            this.$store.commit('user',response.data);
+            // Go to home page
             this.$router.push("/");
         }).catch((error) => {    
             this.form.error = error.response.data.message + " 😥";   
