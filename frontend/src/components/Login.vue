@@ -27,38 +27,62 @@
 
         <b-button type="submit" class="login-button" >Log in</b-button>
       </b-form>
-      <b-form v-if="this.$route.name === 'signup'" @submit="loginSubmit" >
+      <b-form v-if="this.$route.name === 'signup'" @submit="signUpSubmit" >
 
         <label class="title" >Sign up</label>
+        
+          <!-- Aline firstname and lastname-->
+          <div class="row pack-input "   >
+            <!-- FirstName -->
+            <b-form-group
+              id="fieldsetFirstName"
+              label="FirstName"
+              label-for="inputSignupFirstName"
+              class="input-in-pack"
+              >
+              <b-form-input id="inputSignupFirstName"  required v-model="form.firstName" trim></b-form-input>
+            </b-form-group>
+            <!-- Lastname -->
+            <b-form-group
+              id="fieldsetLastname"
+              label="Lastname"
+              label-for="inpuSignuptLastname"
+              style="margin-left: 10px"
+              class="input-in-pack"
+              >
+              <b-form-input id="inpuSignuptLastname"   required v-model="form.lastName" trim></b-form-input>
+            </b-form-group>
+          </div>
           <!-- username -->
           <b-form-group
             id="fieldsetUsername"
-            label="Username"
-            label-for="input-1"
+            label="Username*"
+            label-for="inputSignupUserName"
             >
-            <b-form-input id="input-1" class="input-card" required v-model="form.login"  trim></b-form-input>
+            <b-form-input id="inputSignupUserName" class="input-card" required v-model="form.login"  trim></b-form-input>
           </b-form-group>
-          <!-- username -->
+          
+          <!-- Email -->
           <b-form-group
             id="fieldsetEmail"
-            label="Email"
-            label-for="inputEmail"
+            label="Email*"
+            label-for="inputSignupEmail"
             >
-            <b-form-input id="inputEmail" class="input-card" required v-model="form.login" trim></b-form-input>
+            <b-form-input id="inputSignupEmail" class="input-card" :type="'email'" required v-model="form.email" trim></b-form-input>
           </b-form-group>
           <!-- password -->
           <b-form-group
             id="fieldsetPassword"
-            label="Password"
-            label-for="inputPassword">
+            label="Password*"
+            label-for="inputSignupPassword">
             <b-form-input id="inputSignupPassword" class="input-card" v-model="form.password" :type="'password'" required trim></b-form-input>
           </b-form-group>
           <!-- verify password -->
           <b-form-group
             id="fieldsetPassword"
-            label="Verify the password"
-            label-for="inputPasswordVerif">
-            <b-form-input id="inputSignupPasswordVerif" class="input-card" v-model="form.password" :type="'password'" required trim></b-form-input>
+            label="Verify the password*"
+            label-for="inputSignupPasswordVerif">
+            <b-form-input id="inputSignupPasswordVerif" :state="confirmPasswordState" class="input-card" v-model="form.passwordVerify" :type="'password'" required trim></b-form-input>
           </b-form-group>
           <!-- In case there is an error -->
            <b-alert v-if="this.form.error.length > 0" variant="danger" v-text="form.error" show></b-alert>
@@ -81,6 +105,13 @@
     .input-card {
         width: 50%;
         margin: auto;
+    }
+    .pack-input {
+      width: 50%;
+      margin: auto;
+    }
+    .input-in-pack {
+      width: 48%;
     }
     .login-button {
         border-radius: 16px;
@@ -124,31 +155,45 @@
         }).catch((error) => {    
             this.form.error = error.response.data.message + " 😥";   
         });
+      },
+      async signUpSubmit(evt) {
+        // Reset the error
+        this.form.error = '';
+        evt.preventDefault();
+
+        // Set a object user
+        const signUps = {
+          firstName: this.form.firstName,
+          lastName: this.form.lastName,
+          username: this.form.login,
+          email: this.form.email,
+          password: this.form.password,
+
+        }
+        console.log(signUps);
+
+        // Request the server
+        this.$http.post("/users/register", signUps).then(response => {
+            this.$store.user = response.data;
+            //
+            this.$router.push("/");
+        }).catch((error) => {    
+            this.form.error = error.response.data.message + " 😥";   
+        });
       }
     },
     computed: {
-      // loginState() {
-      //   if (this.loginHasBeenFocus){
-      //     console.log("hey");
-      //     return this.login.length > 0;
-      //   }
-      //   return  false;
-      // },
-      // passwordState() {
-      //   return this.password.length >= 4 ? true : false
-      // },
-      // invalidFeedback() {
-      //   if (this.login.length > 4) {
-      //     return ''
-      //   } else if (this.login.length > 0) {
-      //     return 'Enter at least 4 characters'
-      //   } else {
-      //     return 'Please enter something'
-      //   }
-      // },
-      // validFeedback() {
-      //   return this.state === true ? 'Thank you' : ''
-      // }
+      // To confirm the password
+      confirmPasswordState() {
+        if (this.form.password === this.form.passwordVerify) {
+          return true;
+        } else if (this.form.passwordVerify === '') {
+          return null;
+        } else {
+          return false;
+
+        }
+      },
     },
     
     // created() {
@@ -159,10 +204,15 @@
     data() {
       return {
         form: {
-        login: '',
-        password: '',
-        invalidFeedback: '',
-        error: '',
+          login: '',
+          password: '',
+          passwordVerify: '',
+          email: '',
+          firstName: '',
+          lastName: '',
+          invalidFeedback: '',
+          isSignupAble: false,
+          error: '',
         
         }
       }
