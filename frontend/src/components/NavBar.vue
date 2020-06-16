@@ -7,33 +7,28 @@
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
     <b-collapse id="nav-collapse" is-nav>
-      <b-navbar-nav>
-        <!-- <b-nav-item href="#">Link</b-nav-item>
-        <b-nav-item href="#" disabled>Disabled</b-nav-item> -->
-      </b-navbar-nav>
-
-      
         
         <!-- If a user is connected -->
-        <b-navbar-nav v-if="user" right>
-          <b-nav-item-dropdown >
+        <b-navbar-nav  class="ml-auto">
+          <b-nav-item-dropdown v-if="user"  right>
             <!-- user tag -->
             <template v-slot:button-content>
-              <strong>{{user.username}}</strong>
+                <b-avatar variant="light"></b-avatar>
+                <strong class="mt-2 col-md-12">{{user.username}}</strong>
             </template>
             <b-dropdown-item href="#">Profile</b-dropdown-item>
             <b-dropdown-item @click="signOut" >Sign Out</b-dropdown-item>
           </b-nav-item-dropdown>
-        </b-navbar-nav>
         <!-- Right aligned nav items -->
-        <b-navbar-nav v-else right class="ml-auto">
-          <router-link :to="{ name:'login'}" >
-            <b-button  class="my-2 my-sm-0 navbar-button" >Log in</b-button>
-          </router-link>
-          <router-link :to="{ name:'signup'}" >
-            <b-button  class="my-2 my-sm-0 navbar-button">Sign up</b-button>
-          </router-link>
-        </b-navbar-nav>
+          <div v-else right>
+            <router-link :to="{ name:'login'}" >
+              <b-button  class="my-2 my-sm-0 navbar-button" >Log in</b-button>
+            </router-link>
+            <router-link :to="{ name:'signup'}" >
+              <b-button  class="my-2 my-sm-0 navbar-button">Sign up</b-button>
+            </router-link>
+          </div>
+        </b-navbar-nav  >
     </b-collapse>
   </b-navbar>
 </div>
