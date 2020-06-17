@@ -1,7 +1,6 @@
 <template>
 
       <b-card
-      img-top
       tag="article"
       class="mb-2 login-card ">
       <b-form v-if="this.$route.name === 'login'" @submit="loginSubmit" >

@@ -22,9 +22,9 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-
+    console.log(store.getters.user);
     // if the route is set as private and the user is not connected
-    if (to.meta.private && !store.state.user) {
+    if (to.meta.private && !store.getters.user) {
         // rederect to login
         next({name: 'login'});
         return;
