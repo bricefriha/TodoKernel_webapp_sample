@@ -9,7 +9,12 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import axios from "axios"
 
+import SequentialEntrance from 'vue-sequential-entrance';
+import 'vue-sequential-entrance/vue-sequential-entrance.css';
+
 Vue.use(axios);
+
+Vue.use(SequentialEntrance);
 
 // create http base
 const http = axios.create({
