@@ -11,6 +11,7 @@ import axios from "axios"
 
 import SequentialEntrance from 'vue-sequential-entrance';
 import 'vue-sequential-entrance/vue-sequential-entrance.css';
+import { library } from '@fortawesome/fontawesome-svg-core';
 
 Vue.use(axios);
 

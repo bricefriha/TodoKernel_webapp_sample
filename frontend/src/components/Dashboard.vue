@@ -14,7 +14,9 @@
                 </template>
                     <b-list-group-item class="todoitem-item" v-for="item in todolist.items" :key="item.id">
                         <b-row>
-                            <b-col>1 of 3</b-col>
+                            <b-col>
+                                
+                            </b-col>
                             <b-col cols="9"><span > {{ item.name }} </span></b-col>
                         </b-row>
                     </b-list-group-item>
