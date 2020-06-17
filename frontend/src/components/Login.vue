@@ -149,9 +149,10 @@
 
         // Request the server
         this.$http.post("/users/authenticate", logins).then(response => {
+          // Store user data
             this.$store.state.user = response.data;
-            //
-            this.$router.push("/");
+           // Go to home page
+            this.$router.push("/dashboard");
         }).catch((error) => {    
             this.form.error = error.response.data.message + " 😥";   
         });
@@ -173,10 +174,10 @@
 
         // Request the server
         this.$http.post("/users/register", signUps).then(response => {
-            // this.$store.state.user = response.data;
+            // Store user data
             this.$store.commit('user',response.data);
             // Go to home page
-            this.$router.push("/");
+            this.$router.push("/dashboard");
         }).catch((error) => {    
             this.form.error = error.response.data.message + " 😥";   
         });
