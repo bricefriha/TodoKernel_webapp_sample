@@ -14,7 +14,7 @@
             <!-- user tag -->
             <template v-slot:button-content>
                 <b-avatar variant="light"></b-avatar>
-                <strong class="mt-2 col-md-12">{{user.username}}</strong>
+                <strong class="mt-2 col-md-12 username-profile">{{user.username}}</strong>
             </template>
             <b-dropdown-item href="#">Profile</b-dropdown-item>
             <b-dropdown-item @click="signOut" >Sign Out</b-dropdown-item>
@@ -74,5 +74,8 @@ export default {
   padding-bottom: 7px;
   padding-left: 20px;
   margin:6px;
+}
+.username-profile {
+  color: #1648a5;
 }
 </style>
