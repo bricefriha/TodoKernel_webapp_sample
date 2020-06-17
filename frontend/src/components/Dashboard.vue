@@ -5,7 +5,7 @@
             <b-card  class="mb-2 box todolist-card" v-for="todolist in todolists" :key="todolist.id">
                 <!-- Header -->
                 <template v-slot:header>
-                    <input
+                    <input 
                         type="text"
                         class="form-control"
                         v-model="todolist.title"
@@ -14,10 +14,13 @@
                 </template>
                     <b-list-group-item class="todoitem-item" v-for="item in todolist.items" :key="item.id">
                         <b-row>
-                            <b-col>
-                                
+                            <b-col cols="1">
+                                <!-- Where to click to check the item -->
+                                <font-awesome-icon size="lg" style="color: #329932 ;" @click="checkOrUncheck(todolist.items,item._id)" v-if="item.done" :icon="['fas', 'check-circle']" />
+                                <font-awesome-icon size="lg" @click="checkOrUncheck(todolist.items,item._id)" v-else :icon="['far', 'circle']" />
                             </b-col>
-                            <b-col cols="9"><span > {{ item.name }} </span></b-col>
+                            <!---->
+                            <b-col ><span > {{ item.name }} </span></b-col>
                         </b-row>
                     </b-list-group-item>
             </b-card>
@@ -38,13 +41,24 @@ export default {
                     .catch();
 
         },
+        // Check or uncheck an item as done
+        async checkOrUncheck (items, itemId) {
+            // Request to check a todoitem. see more: https://github.com/bricefriha/TodoKernel#check-or-uncheck-a-todolist-item-
+             this.$http.put("/todos/Check/" + itemId,null, {headers: {
+                    Authorization: 'Bearer ' + this.$store.state.user.token
+                    }})
+                    .then(() => {
+                        this.getTodolists();
+                    })
+                    .catch();
+        }
     },
     data() {
       return {
           todolists: {},
       }
     },
-    created () {
+    created: function() {
         this.getTodolists();
     }
 }

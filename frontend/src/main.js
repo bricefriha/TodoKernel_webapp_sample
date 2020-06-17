@@ -11,7 +11,17 @@ import axios from "axios"
 
 import SequentialEntrance from 'vue-sequential-entrance';
 import 'vue-sequential-entrance/vue-sequential-entrance.css';
+
 import { library } from '@fortawesome/fontawesome-svg-core';
+import { faCircle } from '@fortawesome/free-regular-svg-icons'
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+Vue.config.productionTip = false;
+
+library.add(faCircle,faCheckCircle);
+Vue.component('font-awesome-icon', FontAwesomeIcon);
+
 
 Vue.use(axios);
 
