@@ -10,7 +10,14 @@
                         class="form-control"
                         v-model="todolist.title"
                     />
+                    
                 </template>
+                    <b-list-group-item class="todoitem-item" v-for="item in todolist.items" :key="item.id">
+                        <b-row>
+                            <b-col>1 of 3</b-col>
+                            <b-col cols="9"><span > {{ item.name }} </span></b-col>
+                        </b-row>
+                    </b-list-group-item>
             </b-card>
     </b-card-group>
 </template>
@@ -63,5 +70,11 @@ export default {
 /* .slide-fade-leave-active below version 2.1.8 */ {
   transform: translateX(10px);
   opacity: 0;
+}
+.todoitem-item {
+    margin-top: 5px;
+    margin-left: -10px;
+    margin-right: -10px;
+    box-shadow: 0 0px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.19);
 }
 </style>
