@@ -1,25 +1,30 @@
 <template>
     <b-card-group deck>
-            
-            
-            <b-card  class="mb-2 box todolist-card" v-for="todolist in todolists" :key="todolist.id">
+            <b-card  class="mb-2 box todolist-card" v-for="todolist in todolists" :key="todolist.id" >
                 <!-- Header -->
-                <template v-slot:header>
-                    <input 
-                        type="text"
-                        class="form-control"
-                        v-model="todolist.title"
-                    />
+                <template v-slot:header >
+                    <b-form v-if="todolistRename" @submit="loginSubmit">
+                        <b-row>
+                            <input 
+                                    type="text"
+                                    class="form-control"
+                                    v-model="todolist.title"
+                            />
+                            <b-button type="submit" variant="success" text="+" />
+                        </b-row>
+                    </b-form>
+                    <strong v-else style="color: #fafafa;" @click="updateTodolist"
+                        v-text="todolist.title" />
                     
                 </template>
                     <b-list-group-item class="todoitem-item" v-for="item in todolist.items" :key="item.id">
                         <b-row>
                             <b-col cols="1">
                                 <!-- Where to click to check the item -->
-                                <font-awesome-icon size="lg" style="color: #329932 ;" @click="checkOrUncheck(todolist.items,item._id)" v-if="item.done" :icon="['fas', 'check-circle']" />
-                                <font-awesome-icon size="lg" @click="checkOrUncheck(todolist.items,item._id)" v-else :icon="['far', 'circle']" />
+                                <font-awesome-icon size="lg" style="color: #329932 ;" @click="checkOrUncheck(item._id)" v-if="item.done" :icon="['fas', 'check-circle']" />
+                                <font-awesome-icon size="lg" @click="checkOrUncheck(item._id)" v-else :icon="['far', 'circle']" />
                             </b-col>
-                            <!---->
+                            <!-- name of the item -->
                             <b-col ><span > {{ item.name }} </span></b-col>
                         </b-row>
                     </b-list-group-item>
@@ -37,25 +42,44 @@ export default {
                     }})
                     .then(response => {
                         this.todolists = response.data;
+
+                        // Add a flag to if an element is about to be added
+                        this.todolists.foreach()
                     })
                     .catch();
 
         },
         // Check or uncheck an item as done
-        async checkOrUncheck (items, itemId) {
+        async checkOrUncheck ( itemId) {
             // Request to check a todoitem. see more: https://github.com/bricefriha/TodoKernel#check-or-uncheck-a-todolist-item-
              this.$http.put("/todos/Check/" + itemId,null, {headers: {
+                    Authorization: 'Bearer ' + this.$store.state.user.token
+                    }})
+                    .then(() => {
+                        this.todolistRename = false;
+                        this.getTodolists();
+                    })
+                    .catch();
+        },
+        // rename a todolist
+        async renameTodolist (items, itemId) {
+            // Request to check a todoitem. see more: https://github.com/bricefriha/TodoKernel#check-or-uncheck-a-todolist-item-
+             this.$http.put("/todolists/rename/" + itemId,null, {headers: {
                     Authorization: 'Bearer ' + this.$store.state.user.token
                     }})
                     .then(() => {
                         this.getTodolists();
                     })
                     .catch();
+        },
+        updateTodolist () {
+            this.todolistRename = false;
         }
     },
     data() {
       return {
           todolists: {},
+          todolistRename: false,
       }
     },
     created: function() {
@@ -92,5 +116,8 @@ export default {
     margin-left: -10px;
     margin-right: -10px;
     box-shadow: 0 0px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.19);
+}
+.card-header {
+    background-color: #005AFF ;
 }
 </style>
