@@ -3,7 +3,7 @@
             <b-card  class="mb-2 box todolist-card" v-for="todolist in todolists" :key="todolist.id" >
                 <!-- Header -->
                 <template v-slot:header >
-                    <b-form v-if="todolistRename" @submit="loginSubmit">
+                    <b-form v-if="todolistRename" @submit="loginSubmit" @submit.prevent>
                         <b-row>
                             <input 
                                     type="text"
@@ -28,6 +28,17 @@
                             <b-col ><span > {{ item.name }} </span></b-col>
                         </b-row>
                     </b-list-group-item>
+                <template v-slot:footer  >
+                    <strong style="margin-left: -100px;">Add a new task:</strong>
+                        <b-input-group >
+                            <!-- task name field -->
+                            <b-form-input v-model="itemInputVal " @keyup.enter="addItemSubmit(itemInputVal,todolist)"></b-form-input>
+                            <!-- button -->
+                            <b-input-group-append>
+                                <b-button type="submit" style="background-color: #005AFF ;"  @click="addItemSubmit(itemInputVal,todolist)">+</b-button>
+                            </b-input-group-append>
+                        </b-input-group>
+                </template>
             </b-card>
     </b-card-group>
 </template>
@@ -43,8 +54,11 @@ export default {
                     .then(response => {
                         this.todolists = response.data;
 
-                        // Add a flag to if an element is about to be added
-                        this.todolists.foreach()
+                        // Add extra options
+                        Array.prototype.forEach.call(this.todolists, todolist =>{
+                            // Add a flag to if an element is about to be added
+                            todolist['isAddingItem'] = false;
+                        })
                     })
                     .catch();
 
@@ -74,6 +88,27 @@ export default {
         },
         updateTodolist () {
             this.todolistRename = false;
+        },
+        // add a new item
+        async addItemSubmit(itemInputVal,todolist) {
+            
+            if (itemInputVal) {
+                const itemInfo = {
+                name: itemInputVal,
+                todolistId: todolist._id,
+
+                }
+            // Request to add an item to a todolist. see more: https://github.com/bricefriha/TodoKernel#get-all-your-todolists-
+            this.$http.post("/todos/add",itemInfo, {headers: {
+                    Authorization: 'Bearer ' + this.$store.state.user.token //the token is a variable which holds the token
+                    }})
+                    .then(() => {
+                        this.getTodolists();
+                    })
+                    .catch(err => console.log(err));
+            }
+            this.itemInputVal = '';
+            
         }
     },
     data() {
