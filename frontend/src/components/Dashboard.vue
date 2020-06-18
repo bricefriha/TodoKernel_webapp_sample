@@ -1,5 +1,5 @@
 <template>
-    <b-card-group deck>
+    <b-card-group deck style="overflow-x:scroll;">
             <b-card  class="mb-2 box todolist-card" v-for="todolist in todolists" :key="todolist.id" >
                 <!-- Header -->
                 <template v-slot:header >
@@ -57,6 +57,21 @@
                             </b-input-group-append>
                         </b-input-group>
                 </template>
+            </b-card>
+            <b-card style="max-height: 90px; max-width: 400px; background-color: #005AFF">
+                <strong style="margin-left: -100px; color:#fff">Add a new todolist:</strong>
+                <b-input-group >
+                    <!-- task name field -->
+                    <b-form-input v-model="todolistTitle" @keyup.enter="addTodolistSubmit(todolistTitle)" ></b-form-input>
+                    <!-- button -->
+                    <b-input-group-append>
+                        <b-button type="submit" style="background-color: #0a0a0a ;"  @click="addTodolistSubmit(todolistTitle)">
+                            <font-awesome-icon size="sm" :icon="['fas', 'plus']" />
+                        </b-button>
+                    </b-input-group-append>
+                </b-input-group>
+
+                
             </b-card>
     </b-card-group>
 </template>
@@ -163,8 +178,23 @@ export default {
                 name: newName,
 
                 }
-            // Request to check a todoitem. see more: https://github.com/bricefriha/TodoKernel#check-or-uncheck-a-todolist-item-
+            // Request to rename a todoitem. see more: https://github.com/bricefriha/TodoKernel#check-or-uncheck-a-todolist-item-
              this.$http.put("/todos/rename/" + itemId,itemInfo, {headers: {
+                    Authorization: 'Bearer ' + this.$store.state.user.token
+                    }})
+                    .then(() => {
+                        this.getTodolists();
+                    })
+                    .catch();
+        },
+        // Method to rename a todolist
+        async addTodolistSubmit (todolistTitle) {
+            const todolistInfo = {
+                title: todolistTitle,
+
+                }
+            // Request to create a todolist. see more: https://github.com/bricefriha/TodoKernel/blob/master/README.md#create-a-todolist-
+             this.$http.post("/todolists/create/", todolistInfo, {headers: {
                     Authorization: 'Bearer ' + this.$store.state.user.token
                     }})
                     .then(() => {
@@ -177,7 +207,7 @@ export default {
       return {
           todolists: {},
           todolistRename: false,
-          itemInputVal: '',
+          todolistTitle: '',
       }
     },
     created: function() {
