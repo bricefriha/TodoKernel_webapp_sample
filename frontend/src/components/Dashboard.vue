@@ -27,13 +27,14 @@
                                 <font-awesome-icon size="lg" @click="checkOrUncheck(item._id)" v-else :icon="['far', 'circle']" />
                             </b-col>
                             <!-- name of the item -->
-                            <b-col cols="8"><span > {{ item.name }} </span></b-col>
+                            <b-col cols="8"><ClickToEdit v-model="item.name" :value="item.name" @action="renameItem(item._id,item.name)"  /></b-col>
                             <!-- more -->
                             <b-col >
                                 <b-dropdown size="sm"  variant="link" toggle-class="text-decoration-none" no-caret>
                                     <template v-slot:button-content>
                                         <font-awesome-icon size="sm" :icon="['fas', 'ellipsis-h']" />
                                     </template>
+                                    <b-dropdown-item @click="renameItem(item._id,item.name)" >Rename</b-dropdown-item>
                                     <b-dropdown-item @click="removeItem(item._id)" >Remove</b-dropdown-item>
                                 </b-dropdown>
                             </b-col>
@@ -44,7 +45,7 @@
                     <strong style="margin-left: -100px;">Add a new task:</strong>
                         <b-input-group >
                             <!-- task name field -->
-                            <b-form-input v-model="itemInputVal " @keyup.enter="addItemSubmit(itemInputVal,todolist)"></b-form-input>
+                            <b-form-input v-model="todolist.itemInputVal " :key="todolist._id" @keyup.enter="addItemSubmit(todolist.itemInputVal,todolist)"></b-form-input>
                             <!-- button -->
                             <b-input-group-append>
                                 <b-button type="submit" style="background-color: #005AFF ;"  @click="addItemSubmit(itemInputVal,todolist)">
@@ -57,7 +58,11 @@
     </b-card-group>
 </template>
 <script>
+import ClickToEdit from './ClickToEdit.vue';
 export default {
+    components: {
+        ClickToEdit
+    },
     methods: {
         async getTodolists () {
 
@@ -96,7 +101,7 @@ export default {
                     Authorization: 'Bearer ' + this.$store.state.user.token
                     }})
                     .then(() => {
-                        this.getTodolists();
+                        //this.getTodolists();
                     })
                     .catch();
         },
@@ -133,15 +138,32 @@ export default {
                         this.getTodolists();
                     })
                     .catch(err => console.log(err));
-            }
+            },
+        // Method to rename a task
+        async renameItem (itemId, newName) {
+            const itemInfo = {
+                name: newName,
+
+                }
+            // Request to check a todoitem. see more: https://github.com/bricefriha/TodoKernel#check-or-uncheck-a-todolist-item-
+             this.$http.put("/todos/rename/" + itemId,itemInfo, {headers: {
+                    Authorization: 'Bearer ' + this.$store.state.user.token
+                    }})
+                    .then(() => {
+                        this.getTodolists();
+                    })
+                    .catch();
+        },
         },
     data() {
       return {
           todolists: {},
           todolistRename: false,
+          itemInputVal: '',
       }
     },
     created: function() {
+
         this.getTodolists();
     }
 }
@@ -152,6 +174,7 @@ export default {
         background-color: #fff ;
         border-radius: 12px;
         box-shadow: 0 0px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 6px 0 rgba(0, 0, 0, 0.19);
+        
     }
     .todolist-deck{
         display: flex;
@@ -171,9 +194,11 @@ export default {
   opacity: 0;
 }
 .todoitem-item {
-    margin-top: 8px;
+    margin-top: 10px;
     margin-left: -10px;
     margin-right: -10px;
+    padding-top: 10px !important;
+    padding-bottom: 2px !important;
     border-radius: 8px !important;
     box-shadow: 0 0px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.19);
 }

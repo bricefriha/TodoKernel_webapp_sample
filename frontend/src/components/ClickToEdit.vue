@@ -1,10 +1,10 @@
 <template>
   <div>
-    <input type="text"
+    <b-form-input type="text"
            v-if="edit"
            :value="valueLocal"
            @blur.native="valueLocal = $event.target.value; edit = false; $emit('input', valueLocal);"
-           @keyup.enter.native="valueLocal = $event.target.value; edit = false; $emit('input', valueLocal);"
+           @keyup.enter="valueLocal = $event.target.value; edit = false; $emit('input', valueLocal); $emit('action', submit);"
            v-focus=""
              />
         <p v-else="" @click="edit = true;">
@@ -16,12 +16,13 @@
 <script>
   export default {
 
-  props: ['value'],
+  props: ['value','action'],
 
   data () {
   return {
       edit: false,
-      valueLocal: this.value
+      valueLocal: this.value,
+      submit: this.action,
     }
   },
 
