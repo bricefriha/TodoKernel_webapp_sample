@@ -3,18 +3,10 @@
             <b-card  class="mb-2 box todolist-card" v-for="todolist in todolists" :key="todolist.id" >
                 <!-- Header -->
                 <template v-slot:header >
-                    <b-form v-if="todolistRename" @submit="loginSubmit" @submit.prevent>
-                        <b-row>
-                            <input 
-                                    type="text"
-                                    class="form-control"
-                                    v-model="todolist.title"
-                            />
-                            <b-button type="submit" variant="success" text="+" />
-                        </b-row>
-                    </b-form>
-                    <strong v-else style="color: #fafafa;" @click="updateTodolist"
-                        v-text="todolist.title" />
+                    <strong  style="color: #fafafa;" @click="updateTodolist"
+                         >
+                        <ClickToEdit v-model="todolist.title" :value="todolist.title" @action="renameTodolist ( todolist._id, todolist.title)"  />
+                    </strong>
                     
                 </template>
                 <b-card-body style="margin:-20px; position:relative; height:300px; overflow-y:scroll;">
@@ -34,7 +26,6 @@
                                     <template v-slot:button-content>
                                         <font-awesome-icon size="sm" :icon="['fas', 'ellipsis-h']" />
                                     </template>
-                                    <b-dropdown-item @click="renameItem(item._id,item.name)" >Rename</b-dropdown-item>
                                     <b-dropdown-item @click="removeItem(item._id)" >Remove</b-dropdown-item>
                                 </b-dropdown>
                             </b-col>
@@ -95,9 +86,13 @@ export default {
                     .catch();
         },
         // rename a todolist
-        async renameTodolist ( itemId) {
+        async renameTodolist ( itemId, newName) {
+            const todolistInfo = {
+                title: newName,
+
+                }
             // Request to check a todoitem. see more: https://github.com/bricefriha/TodoKernel#check-or-uncheck-a-todolist-item-
-             this.$http.put("/todolists/rename/" + itemId,null, {headers: {
+             this.$http.put("/todolists/rename/" + itemId,todolistInfo, {headers: {
                     Authorization: 'Bearer ' + this.$store.state.user.token
                     }})
                     .then(() => {
