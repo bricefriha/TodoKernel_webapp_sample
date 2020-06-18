@@ -7,14 +7,14 @@
            @keyup.enter="valueLocal = $event.target.value; edit = false; $emit('input', valueLocal); $emit('action', submit);"
            v-focus=""
              />
-      <b-row v-else @click="edit = true;">
+      <b-row v-else @click="edit = true;" style="margin-left=20px !important;">
         <b-col >
         <strong  >
           {{valueLocal}}
         </strong>
         </b-col>
-        <b-col cols="1">
-          <font-awesome-icon size="sm" style="margin-left=20px !important;" :icon="['fas', 'pen']" />
+        <b-col cols="2">
+          <font-awesome-icon size="sm" style="margin-right=20px !important;" :icon="['fas', 'pen']" />
         </b-col>
       </b-row>
 

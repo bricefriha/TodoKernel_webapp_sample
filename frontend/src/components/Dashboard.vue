@@ -5,7 +5,19 @@
                 <template v-slot:header >
                     <strong  style="color: #fafafa;"
                          >
-                        <ClickToEdit v-model="todolist.title" :value="todolist.title" @action="renameTodolist ( todolist._id, todolist.title)"  />
+                         <b-row>
+                            <b-col cols="1">
+                                <b-dropdown size="sm"  variant="link" toggle-class="text-decoration-none" no-caret>
+                                    <template v-slot:button-content>
+                                        <font-awesome-icon size="lg" style="color: #fff" :icon="['fas', 'ellipsis-h']" />
+                                    </template>
+                                    <b-dropdown-item @click="deleteTodolist(todolist._id)" >Delete this todolist 🗑</b-dropdown-item>
+                                </b-dropdown>
+                            </b-col>
+                            <b-col >
+                                <ClickToEdit v-model="todolist.title" :value="todolist.title" @action="renameTodolist ( todolist._id, todolist.title)"  />
+                            </b-col>
+                         </b-row>
                     </strong>
                     
                 </template>
@@ -127,6 +139,17 @@ export default {
         async removeItem (itemId) {
             // Request to add an item to a todolist. see more: https://github.com/bricefriha/TodoKernel/blob/master/README.md#add-an-item-to-a-todolist-
             this.$http.delete("/todos/" + itemId, {headers: {
+                    Authorization: 'Bearer ' + this.$store.state.user.token //the token is a variable which holds the token
+                    }})
+                    .then(() => {
+                        this.getTodolists();
+                    })
+                    .catch(err => console.log(err));
+            },
+        
+        async deleteTodolist (itemId) {
+            // Request to add an item to a todolist. see more: https://github.com/bricefriha/TodoKernel/blob/master/README.md#add-an-item-to-a-todolist-
+            this.$http.delete("/todolists/" + itemId, {headers: {
                     Authorization: 'Bearer ' + this.$store.state.user.token //the token is a variable which holds the token
                     }})
                     .then(() => {
