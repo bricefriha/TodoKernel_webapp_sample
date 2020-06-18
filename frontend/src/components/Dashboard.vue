@@ -27,7 +27,16 @@
                                 <font-awesome-icon size="lg" @click="checkOrUncheck(item._id)" v-else :icon="['far', 'circle']" />
                             </b-col>
                             <!-- name of the item -->
-                            <b-col ><span > {{ item.name }} </span></b-col>
+                            <b-col cols="8"><span > {{ item.name }} </span></b-col>
+                            <!-- more -->
+                            <b-col >
+                                <b-dropdown size="sm"  variant="link" toggle-class="text-decoration-none" no-caret>
+                                    <template v-slot:button-content>
+                                        <font-awesome-icon size="sm" :icon="['fas', 'ellipsis-h']" />
+                                    </template>
+                                    <b-dropdown-item @click="removeItem(item._id)" >Remove</b-dropdown-item>
+                                </b-dropdown>
+                            </b-col>
                         </b-row>
                     </b-list-group-item>
                 </b-card-body>
@@ -81,7 +90,7 @@ export default {
                     .catch();
         },
         // rename a todolist
-        async renameTodolist (items, itemId) {
+        async renameTodolist ( itemId) {
             // Request to check a todoitem. see more: https://github.com/bricefriha/TodoKernel#check-or-uncheck-a-todolist-item-
              this.$http.put("/todolists/rename/" + itemId,null, {headers: {
                     Authorization: 'Bearer ' + this.$store.state.user.token
@@ -103,7 +112,7 @@ export default {
                 todolistId: todolist._id,
 
                 }
-            // Request to add an item to a todolist. see more: https://github.com/bricefriha/TodoKernel#get-all-your-todolists-
+            // Request to add an item to a todolist. see more: https://github.com/bricefriha/TodoKernel/blob/master/README.md#add-an-item-to-a-todolist-
             this.$http.post("/todos/add",itemInfo, {headers: {
                     Authorization: 'Bearer ' + this.$store.state.user.token //the token is a variable which holds the token
                     }})
@@ -114,8 +123,18 @@ export default {
             }
             this.itemInputVal = '';
             
-        }
-    },
+        },
+        async removeItem (itemId) {
+            // Request to add an item to a todolist. see more: https://github.com/bricefriha/TodoKernel/blob/master/README.md#add-an-item-to-a-todolist-
+            this.$http.delete("/todos/" + itemId, {headers: {
+                    Authorization: 'Bearer ' + this.$store.state.user.token //the token is a variable which holds the token
+                    }})
+                    .then(() => {
+                        this.getTodolists();
+                    })
+                    .catch(err => console.log(err));
+            }
+        },
     data() {
       return {
           todolists: {},
