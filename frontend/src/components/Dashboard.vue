@@ -17,7 +17,9 @@
                         v-text="todolist.title" />
                     
                 </template>
-                    <b-list-group-item class="todoitem-item" v-for="item in todolist.items" :key="item.id">
+                <b-card-body style="margin:-20px; position:relative; height:300px; overflow-y:scroll;">
+
+                    <b-list-group-item class="todoitem-item"  v-for="item in todolist.items" :key="item.id">
                         <b-row>
                             <b-col cols="1">
                                 <!-- Where to click to check the item -->
@@ -28,6 +30,7 @@
                             <b-col ><span > {{ item.name }} </span></b-col>
                         </b-row>
                     </b-list-group-item>
+                </b-card-body>
                 <template v-slot:footer  >
                     <strong style="margin-left: -100px;">Add a new task:</strong>
                         <b-input-group >
@@ -35,7 +38,9 @@
                             <b-form-input v-model="itemInputVal " @keyup.enter="addItemSubmit(itemInputVal,todolist)"></b-form-input>
                             <!-- button -->
                             <b-input-group-append>
-                                <b-button type="submit" style="background-color: #005AFF ;"  @click="addItemSubmit(itemInputVal,todolist)">+</b-button>
+                                <b-button type="submit" style="background-color: #005AFF ;"  @click="addItemSubmit(itemInputVal,todolist)">
+                                    <font-awesome-icon size="sm" :icon="['fas', 'plus']" />
+                                </b-button>
                             </b-input-group-append>
                         </b-input-group>
                 </template>

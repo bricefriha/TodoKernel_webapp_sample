@@ -14,12 +14,12 @@ import 'vue-sequential-entrance/vue-sequential-entrance.css';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCircle } from '@fortawesome/free-regular-svg-icons'
-import { faCheckCircle, faPlusSquare, faPlusCircle } from '@fortawesome/free-solid-svg-icons'
+import { faCheckCircle, faPlusSquare, faPlusCircle,faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 Vue.config.productionTip = false;
 
-library.add(faCircle,faCheckCircle, faPlusCircle, faPlusSquare);
+library.add(faCircle,faCheckCircle, faPlusCircle, faPlusSquare,faPlus);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 
