@@ -3,7 +3,7 @@
             <b-card  class="mb-2 box todolist-card" v-for="todolist in todolists" :key="todolist.id" >
                 <!-- Header -->
                 <template v-slot:header >
-                    <strong  style="color: #fafafa;" @click="updateTodolist"
+                    <strong  style="color: #fafafa;"
                          >
                         <ClickToEdit v-model="todolist.title" :value="todolist.title" @action="renameTodolist ( todolist._id, todolist.title)"  />
                     </strong>

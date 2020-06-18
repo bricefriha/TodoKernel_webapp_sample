@@ -7,9 +7,17 @@
            @keyup.enter="valueLocal = $event.target.value; edit = false; $emit('input', valueLocal); $emit('action', submit);"
            v-focus=""
              />
-        <p v-else="" @click="edit = true;">
+      <b-row v-else @click="edit = true;">
+        <b-col >
+        <strong  >
           {{valueLocal}}
-        </p>
+        </strong>
+        </b-col>
+        <b-col cols="1">
+          <font-awesome-icon size="sm" style="margin-left=20px !important;" :icon="['fas', 'pen']" />
+        </b-col>
+      </b-row>
+
     </div>
 </template>
 
