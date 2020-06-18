@@ -171,12 +171,14 @@ export default {
   opacity: 0;
 }
 .todoitem-item {
-    margin-top: 5px;
+    margin-top: 8px;
     margin-left: -10px;
     margin-right: -10px;
+    border-radius: 8px !important;
     box-shadow: 0 0px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.19);
 }
 .card-header {
+    border-radius: 12px 12px 0px 0px !important;
     background-color: #005AFF ;
 }
 </style>
