@@ -149,7 +149,8 @@
         // Request the server
         this.$http.post("/users/authenticate", logins).then(response => {
           // Store user data
-            this.$store.state.user = response.data;
+            //this.$store.state.user = response.data;
+             this.$store.commit('user',response.data);
            // Go to home page
             this.$router.push("/dashboard");
         }).catch((error) => {    
