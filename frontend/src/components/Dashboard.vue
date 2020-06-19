@@ -86,7 +86,7 @@ export default {
 
             // Request to get todolists. see more: https://github.com/bricefriha/TodoKernel#get-all-your-todolists-
             this.$http.get("/todolists/", {headers: {
-                    Authorization: 'Bearer ' + this.$store.state.user.token //the token is a variable which holds the token
+                    Authorization: 'Bearer ' + this.$store.getters.user.token //the token is a variable which holds the token
                     }})
                     .then(response => {
                         this.todolists = response.data;
@@ -104,7 +104,7 @@ export default {
         async checkOrUncheck ( itemId) {
             // Request to check a todoitem. see more: https://github.com/bricefriha/TodoKernel#check-or-uncheck-a-todolist-item-
              this.$http.put("/todos/Check/" + itemId,null, {headers: {
-                    Authorization: 'Bearer ' + this.$store.state.user.token
+                    Authorization: 'Bearer ' + this.$store.getters.user.token
                     }})
                     .then(() => {
                         this.todolistRename = false;
@@ -120,7 +120,7 @@ export default {
                 }
             // Request to check a todoitem. see more: https://github.com/bricefriha/TodoKernel#check-or-uncheck-a-todolist-item-
              this.$http.put("/todolists/rename/" + itemId,todolistInfo, {headers: {
-                    Authorization: 'Bearer ' + this.$store.state.user.token
+                    Authorization: 'Bearer ' + this.$store.getters.user.token
                     }})
                     .then(() => {
                         //this.getTodolists();
@@ -141,7 +141,7 @@ export default {
                 }
             // Request to add an item to a todolist. see more: https://github.com/bricefriha/TodoKernel/blob/master/README.md#add-an-item-to-a-todolist-
             this.$http.post("/todos/add",itemInfo, {headers: {
-                    Authorization: 'Bearer ' + this.$store.state.user.token //the token is a variable which holds the token
+                    Authorization: 'Bearer ' + this.$store.getters.user.token //the token is a variable which holds the token
                     }})
                     .then(() => {
                         this.getTodolists();
@@ -154,7 +154,7 @@ export default {
         async removeItem (itemId) {
             // Request to add an item to a todolist. see more: https://github.com/bricefriha/TodoKernel/blob/master/README.md#add-an-item-to-a-todolist-
             this.$http.delete("/todos/" + itemId, {headers: {
-                    Authorization: 'Bearer ' + this.$store.state.user.token //the token is a variable which holds the token
+                    Authorization: 'Bearer ' + this.$store.getters.user.token //the token is a variable which holds the token
                     }})
                     .then(() => {
                         this.getTodolists();
@@ -165,7 +165,7 @@ export default {
         async deleteTodolist (itemId) {
             // Request to add an item to a todolist. see more: https://github.com/bricefriha/TodoKernel/blob/master/README.md#add-an-item-to-a-todolist-
             this.$http.delete("/todolists/" + itemId, {headers: {
-                    Authorization: 'Bearer ' + this.$store.state.user.token //the token is a variable which holds the token
+                    Authorization: 'Bearer ' + this.$store.getters.user.token //the token is a variable which holds the token
                     }})
                     .then(() => {
                         this.getTodolists();
@@ -180,7 +180,7 @@ export default {
                 }
             // Request to rename a todoitem. see more: https://github.com/bricefriha/TodoKernel#check-or-uncheck-a-todolist-item-
              this.$http.put("/todos/rename/" + itemId,itemInfo, {headers: {
-                    Authorization: 'Bearer ' + this.$store.state.user.token
+                    Authorization: 'Bearer ' + this.$store.getters.user.token
                     }})
                     .then(() => {
                         this.getTodolists();
@@ -195,7 +195,7 @@ export default {
                 }
             // Request to create a todolist. see more: https://github.com/bricefriha/TodoKernel/blob/master/README.md#create-a-todolist-
              this.$http.post("/todolists/create/", todolistInfo, {headers: {
-                    Authorization: 'Bearer ' + this.$store.state.user.token
+                    Authorization: 'Bearer ' + this.$store.getters.user.token
                     }})
                     .then(() => {
                         this.getTodolists();
