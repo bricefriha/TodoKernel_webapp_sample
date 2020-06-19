@@ -1,10 +1,24 @@
 <template>
-    <b-card-group deck style="overflow-x:scroll;">
+    <div>
+    <b-row>
+        <b-button  style="border-radius: 8px; padding: auto; padding-right: 20px; margin-bottom: 10px; margin-left: 20px; background-color: #005AFF ;"  @click="addTodolistSubmit()">
+            <b-row>
+                <b-col cols="2">
+                    <font-awesome-icon  size="sm" :icon="['fas', 'plus']" />
+                </b-col>
+                <b-col >
+                    <strong style=" color:#fff">Add a new todolist</strong>
+                </b-col>
+                
+            </b-row>
+        </b-button>
+    </b-row>
+     <b-row>
+    <b-card-group deck style="overflow-x:scroll; margin-left: 8px;">
             <b-card  class="mb-2 box todolist-card" v-for="todolist in todolists" :key="todolist.id" >
                 <!-- Header -->
                 <template v-slot:header >
-                    <strong  style="color: #fafafa;"
-                         >
+                    <strong  style="color: #fafafa;">
                          <b-row>
                             <b-col cols="1">
                                 <b-dropdown size="sm"  variant="link" toggle-class="text-decoration-none" no-caret>
@@ -58,22 +72,10 @@
                         </b-input-group>
                 </template>
             </b-card>
-            <b-card style="max-height: 90px; max-width: 400px; background-color: #005AFF">
-                <strong style="margin-left: -100px; color:#fff">Add a new todolist:</strong>
-                <b-input-group >
-                    <!-- task name field -->
-                    <b-form-input v-model="todolistTitle" @keyup.enter="addTodolistSubmit(todolistTitle)" ></b-form-input>
-                    <!-- button -->
-                    <b-input-group-append>
-                        <b-button type="submit" style="background-color: #0a0a0a ;"  @click="addTodolistSubmit(todolistTitle)">
-                            <font-awesome-icon size="sm" :icon="['fas', 'plus']" />
-                        </b-button>
-                    </b-input-group-append>
-                </b-input-group>
-
-                
-            </b-card>
+            
     </b-card-group>
+    </b-row>
+    </div>
 </template>
 <script>
 import ClickToEdit from './ClickToEdit.vue';
