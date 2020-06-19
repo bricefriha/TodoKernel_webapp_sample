@@ -98,8 +98,8 @@
         margin-bottom: auto;
         margin-top: 10px;
         background-color: #fff ;
-        border-radius: 12px;
-        box-shadow: 0 0px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 6px 0 rgba(0, 0, 0, 0.19);
+        border-radius: 15px;
+        box-shadow: 0 0px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.19);
     }
     .input-card {
         width: 50%;

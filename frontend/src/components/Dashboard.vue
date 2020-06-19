@@ -1,7 +1,7 @@
 <template>
-    <div class="text-center">
+    <div >
     <b-row>
-        <b-button  style="border-radius: 8px; padding: auto; padding-right: 20px; margin-bottom: 10px; margin-left: 20px; background-color: #005AFF ;"  @click="addTodolistSubmit()">
+        <b-button  class="dashboard-button"  @click="addTodolistSubmit()">
             <b-row>
                 <b-col cols="2">
                     <font-awesome-icon  size="sm" :icon="['fas', 'plus']" />
@@ -226,7 +226,7 @@ export default {
         border-radius: 12px;
         
         margin: 10px;
-        box-shadow: 0 0px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 6px 0 rgba(0, 0, 0, 0.19);
+        box-shadow: 0 0px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.19);
         
     }
     .todolist-deck{
@@ -258,5 +258,14 @@ export default {
 .card-header {
     border-radius: 12px 12px 0px 0px !important;
     background-color: #005AFF ;
+}
+.dashboard-button {
+    border-radius: 8px;
+    padding: auto;
+    padding-right: 20px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+    background-color: #005AFF ;
+    box-shadow: 0 0px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.19);
 }
 </style>
