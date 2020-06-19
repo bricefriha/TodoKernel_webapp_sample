@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="text-center">
     <b-row>
         <b-button  style="border-radius: 8px; padding: auto; padding-right: 20px; margin-bottom: 10px; margin-left: 20px; background-color: #005AFF ;"  @click="addTodolistSubmit()">
             <b-row>
@@ -13,8 +13,8 @@
             </b-row>
         </b-button>
     </b-row>
-     <b-row>
-    <b-card-group deck style="overflow-x:scroll; margin-left: 8px;">
+     <b-row >
+    <b-card-group deck style=" margin: 20px;" >
             <b-card  class="mb-2 box todolist-card" v-for="todolist in todolists" :key="todolist.id" >
                 <!-- Header -->
                 <template v-slot:header >
@@ -65,7 +65,7 @@
                             <b-form-input v-model="todolist.itemInputVal " :key="todolist._id" @keyup.enter="addItemSubmit(todolist.itemInputVal,todolist)"></b-form-input>
                             <!-- button -->
                             <b-input-group-append>
-                                <b-button type="submit" style="background-color: #005AFF ;"  @click="addItemSubmit(itemInputVal,todolist)">
+                                <b-button  style="background-color: #005AFF ;"  @click="addItemSubmit(todolist.itemInputVal,todolist)">
                                     <font-awesome-icon size="sm" :icon="['fas', 'plus']" />
                                 </b-button>
                             </b-input-group-append>
@@ -221,8 +221,11 @@ export default {
 <style scoped>
     .todolist-card{
         max-width: 400px;
+        min-width: 400px;
         background-color: #fff ;
         border-radius: 12px;
+        
+        margin: 10px;
         box-shadow: 0 0px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 6px 0 rgba(0, 0, 0, 0.19);
         
     }
