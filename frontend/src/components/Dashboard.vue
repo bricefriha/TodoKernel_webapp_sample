@@ -1,5 +1,7 @@
 <template>
-    <div >
+    <div style="margin: auto;
+  width: 81%;">
+  <!-- Actions -->
     <b-row>
         <b-button  class="dashboard-button"  @click="addTodolistSubmit()">
             <b-row>
@@ -13,8 +15,10 @@
             </b-row>
         </b-button>
     </b-row>
+    <!-- Display -->
      <b-row >
-    <b-card-group deck style=" margin: 20px;" >
+    <!-- List of todolist-->
+    <b-card-group deck  >
             <b-card  class="mb-2 box todolist-card" v-for="todolist in todolists" :key="todolist.id" >
                 <!-- Header -->
                 <template v-slot:header >
@@ -191,6 +195,7 @@ export default {
         },
         // Method to rename a todolist
         async addTodolistSubmit (todolistTitle) {
+            todolistTitle = todolistTitle ? todolistTitle : 'New todolist';
             const todolistInfo = {
                 title: todolistTitle,
 
@@ -258,6 +263,10 @@ export default {
 .card-header {
     border-radius: 12px 12px 0px 0px !important;
     background-color: #005AFF ;
+    border-color: #005AFF ;
+    margin-top: -1px;
+    margin-left: -1px;
+    margin-right: -1px;
 }
 .dashboard-button {
     border-radius: 8px;
@@ -266,6 +275,7 @@ export default {
     margin-bottom: 10px;
     margin-left: 20px;
     background-color: #005AFF ;
+    
     box-shadow: 0 0px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.19);
 }
 </style>
